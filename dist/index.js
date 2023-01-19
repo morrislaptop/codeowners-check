@@ -103,7 +103,9 @@ function getChangedFiles(context, client) {
             pull_number: context.issue.number,
             per_page: 100
         });
-        return files.data.map((x) => x['filename']);
+        return files.data
+            .map((x) => x['filename'])
+            .filter(name => name !== 'CODEOWNERS');
     });
 }
 exports.getChangedFiles = getChangedFiles;
