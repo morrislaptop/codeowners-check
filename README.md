@@ -8,8 +8,8 @@ An Action that checks if files are covered by the CODEOWNERS file.
 
 ## Example usage
 
-The following is a fully functional [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow](Github Workflow). Note that a Github
-Oauth token needs to be added to the Github repo as a [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets](Github secret) with
+The following is a fully functional [Github Workflow](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow). Note that a Github
+Oauth token needs to be added to the Github repo as a [Github secret](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets) with
 the name ``githubToken``.
 
 ```yaml
