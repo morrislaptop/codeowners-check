@@ -23,7 +23,7 @@ jobs:
     - name: Check all files have an owner
       uses: morrislaptop/codeowners-check@releases/v1
       with:
-        githubToken: ${{ secrets.githubToken }}
+        githubToken: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 # Development
