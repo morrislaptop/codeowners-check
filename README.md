@@ -1,18 +1,32 @@
 <p align="center">
-  <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
+  <a href="https://github.com/morrislaptop/codeowners-check/actions"><img alt="typescript-action status" src="https://github.com/morrislaptop/codeowners-check/workflows/build-test/badge.svg"></a>
 </p>
 
-# Create a JavaScript Action using TypeScript
+# CODEOWNERS Coverage Check
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
+An Action that checks if files are covered by the CODEOWNERS file.
 
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
+## Example usage
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+The following is a fully functional [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/configuring-a-workflow](Github Workflow). Note that a Github
+Oauth token needs to be added to the Github repo as a [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets](Github secret) with
+the name ``githubToken``.
 
-## Create an action from this template
+```yaml
+on: [pull_request]
+jobs:
+  codeowners-check:
+    runs-on: ubuntu-latest
+    name: CODEOWNERS check
+    steps:
+    - uses: actions/checkout@v1
+    - name: Check all files have an owner
+      uses: morrislaptop/codeowners-check@releases/v1
+      with:
+        githubToken: ${{ secrets.githubToken }}
+```
 
-Click the `Use this Template` and provide the new repo details for your action
+# Development
 
 ## Code in Main
 

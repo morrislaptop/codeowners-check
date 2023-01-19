@@ -1,18 +1,25 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import * as github from '@actions/github'
+import {applyCheck} from './applyCheck'
+import {getChangedFiles} from './getChangedFiles'
+import {getUnownedPaths} from './getUnownedPaths'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const client = github.getOctokit(core.getInput('myToken'))
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    // get all paths (file paths) changed in the PR
+    const paths: string[] = await getChangedFiles(github.context, client)
+    core.info(`Obtained paths: ${paths}`)
 
-    core.setOutput('time', new Date().toTimeString())
+    // paths -> set of codeowners for the paths
+    const unowned: Set<string> = await getUnownedPaths(paths)
+    core.info(`Unowned paths: ${Array.from(unowned)}`)
+
+    // apply the set of labels to the PR
+    await applyCheck(client, unowned)
   } catch (error) {
-    if (error instanceof Error) core.setFailed(error.message)
+    core.setFailed(error.message)
   }
 }
 
