@@ -19,5 +19,8 @@ export async function getChangedFiles(
     per_page: 100
   })
 
-  return files.data.map((x: {filename: string}) => x['filename'])
+  return files.data
+    .filter(f => f.filename !== 'CODEOWNERS')
+    .filter(f => f.status !== 'removed')
+    .map(f => f.filename)
 }

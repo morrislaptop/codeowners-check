@@ -1,5 +1,3 @@
 import {test} from '@jest/globals'
 
-test('placeholder', async () => {
-
-})
+test('placeholder', async () => {})

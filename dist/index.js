@@ -103,7 +103,10 @@ function getChangedFiles(context, client) {
             pull_number: context.issue.number,
             per_page: 100
         });
-        return files.data.map((x) => x['filename']);
+        return files.data
+            .filter(f => f.filename !== 'CODEOWNERS')
+            .filter(f => f.status !== 'removed')
+            .map(f => f.filename);
     });
 }
 exports.getChangedFiles = getChangedFiles;
@@ -191,7 +194,7 @@ const getUnownedPaths_1 = __nccwpck_require__(1802);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const client = github.getOctokit(core.getInput('myToken'));
+            const client = github.getOctokit(core.getInput('githubToken'));
             // get all paths (file paths) changed in the PR
             const paths = yield (0, getChangedFiles_1.getChangedFiles)(github.context, client);
             core.info(`Obtained paths: ${paths}`);

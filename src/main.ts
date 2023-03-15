@@ -6,7 +6,7 @@ import {getUnownedPaths} from './getUnownedPaths'
 
 async function run(): Promise<void> {
   try {
-    const client = github.getOctokit(core.getInput('myToken'))
+    const client = github.getOctokit(core.getInput('githubToken'))
 
     // get all paths (file paths) changed in the PR
     const paths: string[] = await getChangedFiles(github.context, client)
